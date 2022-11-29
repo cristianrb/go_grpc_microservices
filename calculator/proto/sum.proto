@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package sum;
+
+option go_package = "cristianrb/calculator/proto";
+
+message SumRequest {
+  uint64 first = 1;
+  uint64 second = 2;
+}
+
+message SumResponse {
+  uint64 result = 1;
+}
+
+service CalculatorService {
+  rpc Sum (SumRequest) returns (SumResponse);
+}

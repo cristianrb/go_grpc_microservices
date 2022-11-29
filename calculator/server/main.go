@@ -1,17 +1,16 @@
 package main
 
 import (
+	pb "cristianrb/calculator/proto"
 	"google.golang.org/grpc"
 	"log"
 	"net"
-
-	pb "cristianrb/greet/proto"
 )
 
-var addr string = "0.0.0.0:50051"
+var addr = "0.0.0.0:50052"
 
 type Server struct {
-	pb.GreetServiceServer
+	pb.CalculatorServiceServer
 }
 
 func main() {
@@ -22,7 +21,7 @@ func main() {
 
 	log.Printf("Listening on %s\n", addr)
 	s := grpc.NewServer()
-	pb.RegisterGreetServiceServer(s, &Server{})
+	pb.RegisterCalculatorServiceServer(s, &Server{})
 	if err = s.Serve(lis); err != nil {
 		log.Fatalf("Failed to serve: %v", err)
 	}

@@ -1,14 +1,13 @@
 package main
 
 import (
+	pb "cristianrb/calculator/proto"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"log"
-
-	pb "cristianrb/greet/proto"
 )
 
-var addr string = "localhost:50051"
+var addr = "localhost:50052"
 
 func main() {
 	conn, err := grpc.Dial(addr, grpc.WithTransportCredentials(insecure.NewCredentials()))
@@ -17,6 +16,6 @@ func main() {
 	}
 	defer conn.Close()
 
-	c := pb.NewGreetServiceClient(conn)
-	doGreet(c)
+	c := pb.NewCalculatorServiceClient(conn)
+	sum(c)
 }
