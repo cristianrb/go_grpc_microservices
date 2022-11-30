@@ -1,8 +1,10 @@
 syntax = "proto3";
 
-package sum;
+package calculator;
 
 option go_package = "cristianrb/calculator/proto";
+
+import "avg.proto";
 
 message SumRequest {
   uint64 first = 1;
@@ -24,4 +26,5 @@ message PrimesResponse {
 service CalculatorService {
   rpc Sum (SumRequest) returns (SumResponse);
   rpc Primes (PrimesRequest) returns (stream PrimesResponse);
+  rpc Avg (stream AvgRequest) returns (AvgResponse);
 }
