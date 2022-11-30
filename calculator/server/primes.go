@@ -14,13 +14,13 @@ func (s *Server) Primes(in *pb.PrimesRequest, stream pb.CalculatorService_Primes
 }
 
 func calculatePrimes(n int, stream pb.CalculatorService_PrimesServer) {
-	k := 2
+	divisor := 2
 	for n > 1 {
-		if n%k == 0 {
-			stream.Send(&pb.PrimesResponse{Number: uint64(k)})
-			n = n / k
+		if n%divisor == 0 {
+			stream.Send(&pb.PrimesResponse{Number: uint64(divisor)})
+			n = n / divisor
 		} else {
-			k = k + 1
+			divisor = divisor + 1
 		}
 	}
 }
