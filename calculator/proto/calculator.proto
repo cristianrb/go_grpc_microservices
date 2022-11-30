@@ -13,6 +13,15 @@ message SumResponse {
   uint64 result = 1;
 }
 
+message PrimesRequest {
+  uint64 number = 1;
+}
+
+message PrimesResponse {
+  uint64 number = 1;
+}
+
 service CalculatorService {
   rpc Sum (SumRequest) returns (SumResponse);
+  rpc Primes (PrimesRequest) returns (stream PrimesResponse);
 }
