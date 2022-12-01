@@ -39,3 +39,21 @@ func readBlog(c pb.BlogServiceClient, id string) *pb.Blog {
 	log.Printf("Blog was read: %v\n", res)
 	return res
 }
+
+func updateBlog(c pb.BlogServiceClient, id string) {
+	log.Println("---updateBlog was invoked---")
+
+	blog := &pb.Blog{
+		Id:       id,
+		AuthorId: "Not Cristian",
+		Title:    "New titlte",
+		Content:  "Updated content",
+	}
+
+	_, err := c.UpdateBlog(context.Background(), blog)
+	if err != nil {
+		log.Fatalf("Unexpected error: %v\n", err)
+	}
+
+	log.Println("Blog has been updated")
+}
