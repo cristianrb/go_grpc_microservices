@@ -22,4 +22,5 @@ func main() {
 	//readBlog(c, "notValid")
 	updateBlog(c, id)
 	listBlogs(c)
+	deleteBlog(c, id)
 }

@@ -109,3 +109,25 @@ func (s *Server) ListBlog(in *emptypb.Empty, stream pb.BlogService_ListBlogServe
 
 	return nil
 }
+
+func (s *Server) DeleteBlog(ctx context.Context, in *pb.BlogId) (*emptypb.Empty, error) {
+	log.Printf("DeleteBlog was invoked with %v\n", in)
+
+	oid, err := primitive.ObjectIDFromHex(in.Id)
+	if err != nil {
+		return nil, status.Errorf(codes.InvalidArgument, fmt.Sprintf("Cannot parse ID: %v\n", err))
+	}
+
+	filter := bson.M{"_id": oid}
+
+	res, err := collection.DeleteOne(context.Background(), filter)
+	if err != nil {
+		return nil, status.Errorf(codes.InvalidArgument, fmt.Sprintf("Cannot delete object in MongoDB: %v\n", err))
+	}
+
+	if res.DeletedCount == 0 {
+		return nil, status.Errorf(codes.InvalidArgument, "Blog was not found")
+	}
+
+	return &emptypb.Empty{}, nil
+}
